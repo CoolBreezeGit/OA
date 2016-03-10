@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.coolbreeze.oa.base.BaseAction;
 import com.coolbreeze.oa.domain.Department;
 import com.coolbreeze.oa.service.DepartmentService;
+import com.coolbreeze.oa.tool.DepartmentTreeList;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -40,7 +41,9 @@ public class DepartmentAction extends BaseAction<Department> {
 	// 进入添加页面
 	public String addUI() {
 
-		List<Department> departmentList = departmentService.findAll();
+		List<Department> departmentList = departmentService.findTopList();
+		departmentList=DepartmentTreeList.treeList(departmentList, "┠");
+		
 		ActionContext.getContext().put("departmentList", departmentList);
 
 		return "addUI";
@@ -62,9 +65,19 @@ public class DepartmentAction extends BaseAction<Department> {
 		Department department = departmentService.getById(modelDTO.getId());
 		
 		//回显上级部门
-		List<Department> departmentList = departmentService.findAll();
+		/*List<Department> departmentList = departmentService.findAll();
+		ActionContext.getContext().put("departmentList", departmentList);*/
+		List<Department> departmentList = departmentService.findTopList();
+		departmentList=DepartmentTreeList.treeList(departmentList, "┠");
+		
 		ActionContext.getContext().put("departmentList", departmentList);
-		parentId=department.getParent().getId();
+		
+		/*
+		 * 需要处理当部门没有上级部门时的空指针异常！！
+		 */
+		if(department.getParent()!=null){
+			parentId=department.getParent().getId();
+		}
 		
 		ActionContext.getContext().getValueStack().push(department);
 		return "editUI";

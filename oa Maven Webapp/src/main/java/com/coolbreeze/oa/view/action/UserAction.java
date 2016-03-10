@@ -44,17 +44,10 @@ public class UserAction extends BaseAction<User> {
 	public String addUI() {
 
 		// TODO 准备数据：部门和岗位，要以树状结构显示！！
-/*		List<Department> allList = departmentService.findAll();
-		ActionContext.getContext().put("allList", allList);*/
-		List<Department> topList = departmentService.findTopList();
-		System.out.println(topList);
+		List<Department> departmentList = departmentService.findTopList();
+		departmentList=DepartmentTreeList.treeList(departmentList, "┠");
 		
-/*		List<String> departmentList=new ArrayList<String>();
-		DepartmentTreeList.treeList(topList, departmentList, "┠");
-		
-		System.out.println(departmentList);
-		
-		ActionContext.getContext().put("departmentList", departmentList);*/
+		ActionContext.getContext().put("departmentList", departmentList);
 		
 		List<Role> roleList = roleService.findAll();
 		ActionContext.getContext().put("roleList", roleList);
@@ -76,9 +69,12 @@ public class UserAction extends BaseAction<User> {
 	// 进入修改页面
 	public String editUI() {
 		//准备部门和岗位的数据
-		List<Department> departmentList = departmentService.findAll();
-		List<Role> roleList = roleService.findAll();
+		List<Department> departmentList = departmentService.findTopList();
+		departmentList=DepartmentTreeList.treeList(departmentList, "┠");
+		
 		ActionContext.getContext().put("departmentList", departmentList);
+		
+		List<Role> roleList = roleService.findAll();
 		ActionContext.getContext().put("roleList", roleList);
 		
 		//准备用户的数据
@@ -129,7 +125,6 @@ public class UserAction extends BaseAction<User> {
 		
 		return "redirectList";
 	}
-	
 	
 	//================================================
 	

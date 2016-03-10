@@ -1,0 +1,65 @@
+
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<!-- 标签为简单主题，便于排版 -->
+	<constant name="struts.ui.theme" value="simple"></constant>
+
+
+	<package name="/" extends="struts-default" namespace="/">
+
+		<action name="userAction_*" class="userAction" method="{1}">
+			<result name="list">
+				/WEB-INF/jsp/user/list.jsp
+			</result>
+			<result name="redirectList" type="redirectAction">
+				userAction_list
+			</result>
+			<result name="addUI">
+				/WEB-INF/jsp/user/addUI.jsp
+			</result>
+			<result name="editUI">
+				/WEB-INF/jsp/user/editUI.jsp
+			</result>
+		</action>
+
+		<action name="roleAction_*" class="roleAction" method="{1}">
+			<result name="list">
+				/WEB-INF/jsp/role/list.jsp
+			</result>
+			<result name="redirectList" type="redirectAction">
+				roleAction_list
+			</result>
+			<result name="addUI">
+				/WEB-INF/jsp/role/addUI.jsp
+			</result>
+			<result name="editUI">
+				/WEB-INF/jsp/role/editUI.jsp
+			</result>
+		</action>
+
+		<action name="departmentAction_*" class="departmentAction"
+			method="{1}">
+			<result name="list">
+				/WEB-INF/jsp/department/list.jsp
+			</result>
+			<result name="redirectList" type="redirectAction">
+				departmentAction_list
+			</result>
+			<result name="addUI">
+				/WEB-INF/jsp/department/addUI.jsp
+			</result>
+			<result name="editUI">
+				/WEB-INF/jsp/department/editUI.jsp
+			</result>
+		</action>
+
+
+		<action name="*">
+			<result>/WEB-INF/jsp/home/index.jsp</result>
+		</action>
+	</package>
+
+</struts>

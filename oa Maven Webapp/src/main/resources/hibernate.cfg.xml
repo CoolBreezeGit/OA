@@ -1,0 +1,38 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+			"//Hibernate/Hibernate Configuration DTD 3.0//EN"
+			"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+
+		<!-- <property name="hibernate.dialect"> org.hibernate.dialect.Oracle10gDialect 
+			</property> -->
+
+
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+
+		<!-- <property name="connection.url">jdbc:mysql://localhost:3306/oa</property> -->
+
+
+		<!-- <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property> 
+			<property name="hibernate.connection.username">coolbreeze</property> <property 
+			name="hibernate.connection.password">12345678</property> -->
+
+		<!-- <property name="connection.url">jdbc:oracle:thin:@localhost:1521:orcl</property> 
+			<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property> 
+			<property name="hibernate.connection.username">scott</property> <property 
+			name="hibernate.connection.password">201413lyk</property> -->
+
+
+		<property name="show_sql">true</property>
+
+		<!-- 自动建表配置,create,update,create-drop,validate -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+
+		<mapping resource="com/coolbreeze/oa/domain/User.hbm.xml" />
+		<mapping resource="com/coolbreeze/oa/domain/Department.hbm.xml" />
+		<mapping resource="com/coolbreeze/oa/domain/Role.hbm.xml" />
+
+	</session-factory>
+</hibernate-configuration>			
+		

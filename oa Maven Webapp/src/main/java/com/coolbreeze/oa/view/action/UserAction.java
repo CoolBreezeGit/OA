@@ -1,5 +1,7 @@
 package com.coolbreeze.oa.view.action;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.context.annotation.Scope;
@@ -9,35 +11,23 @@ import com.coolbreeze.oa.base.BaseAction;
 import com.coolbreeze.oa.domain.Department;
 import com.coolbreeze.oa.domain.Role;
 import com.coolbreeze.oa.domain.User;
+import com.coolbreeze.oa.tool.DepartmentTreeList;
+import com.mysql.fabric.xmlrpc.base.Array;
 import com.opensymphony.xwork2.ActionContext;
 
 @Controller
 @Scope("prototype")
 public class UserAction extends BaseAction<User> {
 
-	private String departmentId;
+	private Long departmentId;
+	private Long[] roleIds;
 
-	public String getDepartmentId() {
-		return departmentId;
-	}
-
-	public void setDepartmentId(String departmentId) {
-		this.departmentId = departmentId;
-	}
 	
-
 	// 显示
 	public String list() {
 
 		List<User> userList = userService.findAll();
-		
-		System.out.println(userList.get(0).getName());
-		
-		/*
-		 * 为什么这次到这句会发生异常。。。。！！！！？？？？？
-		 */
 		ActionContext.getContext().put("userList", userList);
-		//ActionContext.getContext().getValueStack().push(userList);
 
 		return "list";
 	}
@@ -48,15 +38,25 @@ public class UserAction extends BaseAction<User> {
 		userService.delete(modelDTO.getId());
 
 		return "redirectList";
-	}
-
+	}	
+	
 	// 进入添加页面
 	public String addUI() {
 
-		// TODO 准备数据：部门和岗位
-		List<Department> departmentList = departmentService.findAll();
+		// TODO 准备数据：部门和岗位，要以树状结构显示！！
+/*		List<Department> allList = departmentService.findAll();
+		ActionContext.getContext().put("allList", allList);*/
+		List<Department> topList = departmentService.findTopList();
+		System.out.println(topList);
+		
+/*		List<String> departmentList=new ArrayList<String>();
+		DepartmentTreeList.treeList(topList, departmentList, "┠");
+		
+		System.out.println(departmentList);
+		
+		ActionContext.getContext().put("departmentList", departmentList);*/
+		
 		List<Role> roleList = roleService.findAll();
-		ActionContext.getContext().put("departmentList", departmentList);
 		ActionContext.getContext().put("roleList", roleList);
 
 		return "addUI";
@@ -64,14 +64,36 @@ public class UserAction extends BaseAction<User> {
 
 	// 添加
 	public String add() {
-		System.out.println(modelDTO.getName());
+		// 设置部门
+		modelDTO.setDepartment(departmentService.getById(departmentId));
+		// 设置岗位
+		modelDTO.setRoles(new HashSet<Role>(roleService.getByIds(roleIds)));
+
 		userService.add(modelDTO);
 		return "redirectList";
 	}
 
 	// 进入修改页面
 	public String editUI() {
+		//准备部门和岗位的数据
+		List<Department> departmentList = departmentService.findAll();
+		List<Role> roleList = roleService.findAll();
+		ActionContext.getContext().put("departmentList", departmentList);
+		ActionContext.getContext().put("roleList", roleList);
+		
+		//准备用户的数据
 		User user = userService.getById(modelDTO.getId());
+		//设置departmentId和roleIds，方便回显
+		departmentId=user.getDepartment().getId();
+		
+		int size=user.getRoles().size();
+		roleIds=new Long[size];
+		int i=0;
+		for(Role role : user.getRoles()){
+			roleIds[i++]=role.getId();
+			
+		}
+		
 		ActionContext.getContext().getValueStack().push(user);
 		return "editUI";
 	}
@@ -79,9 +101,53 @@ public class UserAction extends BaseAction<User> {
 	// 修改
 	public String edit() {
 		User user = userService.getById(modelDTO.getId());
+		
+		user.setLoginName(modelDTO.getLoginName());
 		user.setName(modelDTO.getName());
 		user.setDescription(modelDTO.getDescription());
+		user.setGender(modelDTO.getGender());
+		user.setEmail(modelDTO.getEmail());
+		user.setPhoneNumber(modelDTO.getPhoneNumber());
+		
+		
+		// 设置部门
+		user.setDepartment(departmentService.getById(departmentId));
+		// 设置岗位
+		user.setRoles(new HashSet<Role>(roleService.getByIds(roleIds)));
+
+		
 		userService.update(user);
 		return "redirectList";
 	}
+	
+	
+	
+	//初始化密码
+	public String initPassword(){
+		
+		
+		
+		return "redirectList";
+	}
+	
+	
+	//================================================
+	
+	
+	public Long[] getRoleIds() {
+		return roleIds;
+	}
+
+	public void setRoleIds(Long[] roleIds) {
+		this.roleIds = roleIds;
+	}
+
+	public Long getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
+	}
+
 }

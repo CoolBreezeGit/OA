@@ -14,55 +14,85 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-
 @Controller
 @Scope("prototype")
-public class DepartmentAction extends BaseAction<Department>{
+public class DepartmentAction extends BaseAction<Department> {
+
+	private Long parentId;
 
 	// 显示
-	public String list() {	
-		
-		List<Department> departmentList=departmentService.findAll();
+	public String list() {
+
+		List<Department> departmentList = departmentService.findAll();
 		ActionContext.getContext().put("departmentList", departmentList);
-		
+
 		return "list";
 	}
 
 	// 删除
 	public String delete() {
-		
+
 		departmentService.delete(modelDTO.getId());
-		
+
 		return "redirectList";
 	}
 
 	// 进入添加页面
-	public String addUI() {		
+	public String addUI() {
+
+		List<Department> departmentList = departmentService.findAll();
+		ActionContext.getContext().put("departmentList", departmentList);
+
 		return "addUI";
 	}
 
 	// 添加
 	public String add() {
-		System.out.println(modelDTO.getName());
+		//设置上级部门
+		modelDTO.setParent(departmentService.getById(parentId));
 		departmentService.add(modelDTO);
+		
+		System.out.println(modelDTO.getName());
+		
 		return "redirectList";
 	}
 
 	// 进入修改页面
 	public String editUI() {
-		Department department=departmentService.getById(modelDTO.getId());
+		Department department = departmentService.getById(modelDTO.getId());
+		
+		//回显上级部门
+		List<Department> departmentList = departmentService.findAll();
+		ActionContext.getContext().put("departmentList", departmentList);
+		parentId=department.getParent().getId();
+		
 		ActionContext.getContext().getValueStack().push(department);
 		return "editUI";
 	}
 
 	// 修改
 	public String edit() {
-		//System.out.println(modelDTO.getId());
-		Department department=departmentService.getById(modelDTO.getId());
+		Department department = departmentService.getById(modelDTO.getId());
 		department.setName(modelDTO.getName());
 		department.setDescription(modelDTO.getDescription());
+		
+		//修改上级部门
+		department.setParent(departmentService.getById(parentId));
+		
 		departmentService.update(department);
 		return "redirectList";
 	}
 	
+	
+	
+
+	// ===========================================================
+	public Long getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
+
 }

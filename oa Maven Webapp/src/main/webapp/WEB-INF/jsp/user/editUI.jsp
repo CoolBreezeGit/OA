@@ -27,6 +27,7 @@
 <!--显示表单内容-->
 <div id=MainArea>
     <s:form action="userAction_edit">
+    	<s:hidden name="id"></s:hidden>
         <div class="ItemBlock_Title1"><!-- 信息说明 --><div class="ItemBlock_Title1">
         	<img border="0" width="4" height="7" src="${pageContext.request.contextPath}/style/blue/images/item_point.gif" /> 用户信息 </div> 
         </div>
@@ -36,15 +37,12 @@
             <div class="ItemBlock">
                 <table cellpadding="0" cellspacing="0" class="mainForm">
                     <tr><td width="100">所属部门</td>
-                        <td><select name="departmentId" class="SelectStyle">
-                                <option value="0" selected="selected">请选择部门</option>
-                                <option value="7">┠总经理室</option>
-                                <option value="1">┠市场部</option>
-                                <option value="2">　┠咨询部</option>
-                                <option value="3">　┠招生部</option>
-                                <option value="4">┠教学部</option>
-                                <option value="5">┠后勤部</option>
-                            </select> 
+                        <td>
+                        	<s:select 
+                        	name="departmentId" cssClass="SelectStyle" 
+                        	list="#departmentList" listKey="id" listValue="name"
+                        	>
+                            </s:select>
                         </td>
                     </tr>
                     <tr><td>登录名</td>
@@ -57,7 +55,7 @@
                     </tr>
 					<tr><td>性别</td>
                         <td>
-							<s:radio list="{男,女}" listKey="{男,女}"></s:radio>
+							<s:radio name="gender" list="%{{'男','女'}}"></s:radio>
 						</td>
                     </tr>
 					<tr><td>联系电话</td>
@@ -83,13 +81,10 @@
                 <table cellpadding="0" cellspacing="0" class="mainForm">
                     <tr>
 						<td width="100">岗位</td>
-                        <td><select name="roleIdList" multiple="true" size="10" class="SelectStyle">
-                                <option value="1">程序员</option>
-                                <option value="2">行政秘书</option>
-                                <option value="3">出纳</option>
-                                <option value="4">总经理</option>
-                                <option value="5">测试员</option>
-                            </select>
+                        <td><s:select name="roleIds" cssClass="SelectStyle" 
+                        	list="#roleList" listKey="id" listValue="name"
+                        	multiple="true">
+                            </s:select> 
                             按住Ctrl键可以多选或取消选择
                         </td>
                     </tr>

@@ -37,10 +37,18 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 	}
 
 	public T getById(Long id) {
+		
+		//判断id是否为空，否则如果id为null，会出异常
+		if(id == null){
+			return null;
+		}
+		
 		return (T) getSession().get(clazz, id);
 	}
 
 	public List<T> getByIds(Long[] ids) {
+		
+		//判断ids是否为空，否则如果ids为null或空，会出异常
 		if (ids == null || ids.length == 0) {
 			return Collections.EMPTY_LIST;
 		}

@@ -1,5 +1,6 @@
 package com.coolbreeze.oa.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.coolbreeze.oa.domain.Role;
@@ -15,5 +16,7 @@ public interface RoleService {
 	Role getById(Long id);
 
 	void update(Role role);
+
+	List<Role> getByIds(Long[] roleIds);
 
 }

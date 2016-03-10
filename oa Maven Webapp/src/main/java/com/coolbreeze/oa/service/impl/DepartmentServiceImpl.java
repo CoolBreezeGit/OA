@@ -38,4 +38,8 @@ public class DepartmentServiceImpl implements DepartmentService{
 		departmentDao.update(Department);
 	}
 
+	public List<Department> findTopList() {
+		return departmentDao.findTopList();
+	}
+
 }

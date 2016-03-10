@@ -16,4 +16,6 @@ public interface DepartmentService {
 
 	void update(Department Department);
 
+	List<Department> findTopList();
+
 }

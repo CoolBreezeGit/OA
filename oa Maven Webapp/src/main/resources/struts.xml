@@ -6,7 +6,7 @@
 
 	<!-- 标签为简单主题，便于排版 -->
 	<constant name="struts.ui.theme" value="simple"></constant>
-
+	<constant name="struts.i18n.encoding" value="utf-8"/>
 
 	<package name="/" extends="struts-default" namespace="/">
 

@@ -38,4 +38,8 @@ public class RoleServiceImpl implements RoleService{
 		roleDao.update(role);
 	}
 
+	public List<Role> getByIds(Long[] roleIds) {
+		return roleDao.getByIds(roleIds);
+	}
+
 }

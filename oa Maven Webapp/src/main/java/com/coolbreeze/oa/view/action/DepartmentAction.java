@@ -24,7 +24,14 @@ public class DepartmentAction extends BaseAction<Department> {
 	// 显示
 	public String list() {
 
-		List<Department> departmentList = departmentService.findAll();
+		List<Department> departmentList=null;
+		
+		if(parentId==null){
+			departmentList = departmentService.findTopList();
+		}else{
+			departmentList=departmentService.findChildrenList(parentId);
+		}
+		
 		ActionContext.getContext().put("departmentList", departmentList);
 
 		return "list";
@@ -53,7 +60,7 @@ public class DepartmentAction extends BaseAction<Department> {
 	public String add() {
 		//设置上级部门
 		modelDTO.setParent(departmentService.getById(parentId));
-		departmentService.add(modelDTO);
+		departmentService.save(modelDTO);
 		
 		System.out.println(modelDTO.getName());
 		

@@ -79,15 +79,25 @@ public class UserAction extends BaseAction<User> {
 		
 		//准备用户的数据
 		User user = userService.getById(modelDTO.getId());
-		//设置departmentId和roleIds，方便回显
-		departmentId=user.getDepartment().getId();
-		
-		int size=user.getRoles().size();
-		roleIds=new Long[size];
-		int i=0;
-		for(Role role : user.getRoles()){
-			roleIds[i++]=role.getId();
 			
+		//设置departmentId和roleIds，方便回显
+		
+		/*
+		 * 当用户没有所属部门时，需要处理空异常
+		 */
+		if(user.getDepartment()!=null)
+			departmentId=user.getDepartment().getId();
+		/*
+		 * 当用户没有岗位时，需要处理空异常
+		*/
+		if(user.getRoles()!=null){
+			int size=user.getRoles().size();
+			roleIds=new Long[size];
+			int i=0;
+			for(Role role : user.getRoles()){
+				roleIds[i++]=role.getId();
+				
+			}
 		}
 		
 		ActionContext.getContext().getValueStack().push(user);

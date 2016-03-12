@@ -38,7 +38,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 		getSession().delete(obj);
 	}
 
-	public T getById(Long id) {
+	public T getById(Long id) { 
 		
 		//判断id是否为空，否则如果id为null，会出异常
 		if(id == null){

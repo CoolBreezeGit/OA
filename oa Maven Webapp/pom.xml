@@ -189,6 +189,13 @@
 		</dependency>
 		<!-- c3p0链接池包 -->
 
+		<!-- MD5依赖jar -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.9</version>
+		</dependency>
+
 		<!-- json -->
 		<dependency>
 			<groupId>com.alibaba</groupId>

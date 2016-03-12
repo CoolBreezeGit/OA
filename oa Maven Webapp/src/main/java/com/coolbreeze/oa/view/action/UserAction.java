@@ -1,18 +1,17 @@
 package com.coolbreeze.oa.view.action;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.DigestUtils;
 
 import com.coolbreeze.oa.base.BaseAction;
 import com.coolbreeze.oa.domain.Department;
 import com.coolbreeze.oa.domain.Role;
 import com.coolbreeze.oa.domain.User;
 import com.coolbreeze.oa.tool.DepartmentTreeList;
-import com.mysql.fabric.xmlrpc.base.Array;
 import com.opensymphony.xwork2.ActionContext;
 
 @Controller
@@ -62,6 +61,9 @@ public class UserAction extends BaseAction<User> {
 		// 设置岗位
 		modelDTO.setRoles(new HashSet<Role>(roleService.getByIds(roleIds)));
 
+		//默认设置密码为1234
+		modelDTO.setPassword( DigestUtils.md5DigestAsHex("1234".getBytes()));
+		
 		userService.add(modelDTO);
 		return "redirectList";
 	}
@@ -130,9 +132,13 @@ public class UserAction extends BaseAction<User> {
 	
 	//初始化密码
 	public String initPassword(){
-		
-		
-		
+		User user = userService.getById(modelDTO.getId());
+		//初始化密码为1234
+		//System.out.println("password");
+		//System.out.println(DigestUtils.md5Hex("1234"));
+		System.out.println(DigestUtils.md5DigestAsHex("1234".getBytes()));
+		user.setPassword(DigestUtils.md5DigestAsHex("1234".getBytes()));
+		userService.update(user);
 		return "redirectList";
 	}
 	

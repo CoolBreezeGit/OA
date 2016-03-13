@@ -7,8 +7,15 @@
     <title>CoolBreeze OA</title>
     
   </head>
-  
-  <body>
+
+<!-- 此处应把body去掉！！frameset包含整个页面，不用body -->
+    <frameset rows="100px,*,30px">
+    	<frame name="top" scrolling="no" src="${pageContext.request.contextPath}/homeAction_top.action"></frame>
+    	<frameset cols="200px,*">
+    		<frame name="left" scrolling="no" src="${pageContext.request.contextPath}/homeAction_left.action"></frame>
+    		<frame name="right" scrolling="auto"></frame>
+    	</frameset>
+    	<frame name="bottom" scrolling="no" src="${pageContext.request.contextPath}/homeAction_bottom.action"></frame>
+    </frameset>
     
-  </body>
 </html>

@@ -190,11 +190,11 @@
 		<!-- c3p0链接池包 -->
 
 		<!-- MD5依赖jar -->
-		<dependency>
+<!-- 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
-		</dependency>
+		</dependency> -->
 
 		<!-- json -->
 		<dependency>

@@ -11,7 +11,7 @@ import com.coolbreeze.oa.base.BaseAction;
 import com.coolbreeze.oa.domain.Department;
 import com.coolbreeze.oa.domain.Role;
 import com.coolbreeze.oa.domain.User;
-import com.coolbreeze.oa.tool.DepartmentTreeList;
+import com.coolbreeze.oa.tool.DepartmentUtils;
 import com.opensymphony.xwork2.ActionContext;
 
 @Controller
@@ -44,7 +44,7 @@ public class UserAction extends BaseAction<User> {
 
 		// TODO 准备数据：部门和岗位，要以树状结构显示！！
 		List<Department> departmentList = departmentService.findTopList();
-		departmentList=DepartmentTreeList.treeList(departmentList, "┠");
+		departmentList=DepartmentUtils.treeList(departmentList, "┠");
 		
 		ActionContext.getContext().put("departmentList", departmentList);
 		
@@ -72,7 +72,7 @@ public class UserAction extends BaseAction<User> {
 	public String editUI() {
 		//准备部门和岗位的数据
 		List<Department> departmentList = departmentService.findTopList();
-		departmentList=DepartmentTreeList.treeList(departmentList, "┠");
+		departmentList=DepartmentUtils.treeList(departmentList, "┠");
 		
 		ActionContext.getContext().put("departmentList", departmentList);
 		

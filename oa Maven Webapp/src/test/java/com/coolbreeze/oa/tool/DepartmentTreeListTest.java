@@ -21,7 +21,7 @@ public class DepartmentTreeListTest {
 		System.out.println(topList);
 		
 		List<Department> departmentList=new ArrayList<Department>();
-		DepartmentTreeList.treeList(topList, "┠");
+		DepartmentUtils.treeList(topList, "┠");
 		
 		System.out.println(departmentList);
 	}

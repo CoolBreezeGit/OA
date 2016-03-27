@@ -29,7 +29,7 @@
 					<li class="level2">
 						<div class="level2Style">
 							<img src="style/images/MenuIcon/menu_arrow_single.gif" /> <a
-								target="right" href="Flow_FormTemplate/list.html">表单模板管理</a>
+								target="right" href="processTemplateAction_list.action">表单模板管理</a>
 						</div>
 					</li>
 					<li class="level2">

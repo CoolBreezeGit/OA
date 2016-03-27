@@ -11,6 +11,9 @@
 	<!-- 配置所有action的扩展名为action，方便做openSessionInVeiwFilter的过滤 -->
 	<constant name="struts.action.extension" value="action"></constant>
 
+	<!-- 允许调用OGNL调用静态方法 -->
+	<constant name="struts.ognl.allowStaticMethodAcces" value="true"></constant>
+
 	<package name="/" extends="struts-default" namespace="/">
 
 		<!-- 主页配置 -->
@@ -86,6 +89,23 @@
 			</result>
 			<result name="showImg" type="stream">
 				<param name="contentType">image/png</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 审批流程：流程模板文件管理配置 -->
+		<action name="processTemplateAction_*" class="processTemplateAction" method="{1}">
+			<result name="list">
+				/WEB-INF/jsp/processTemplate/list.jsp
+			</result>
+			<result name="redirectList" type="redirectAction">
+				processTemplateAction_list
+			</result>
+			<result name="addUI">
+				/WEB-INF/jsp/processTemplate/addUI.jsp
+			</result>
+			<result name="download" type="stream">
+				<!-- 二进制 -->
+				<param name="contentType">application/octet-stream</param>
 				<param name="inputName">inputStream</param>
 			</result>
 		</action>

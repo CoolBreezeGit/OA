@@ -9,7 +9,9 @@
 			</property> -->
 
 
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		<property name="hibernate.dialect">
+			org.hibernate.dialect.MySQL5Dialect
+		</property>
 
 		<!-- <property name="connection.url">jdbc:mysql://localhost:3306/oa</property> -->
 
@@ -29,17 +31,19 @@
 		<!-- 自动建表配置,create,update,create-drop,validate -->
 		<property name="hibernate.hbm2ddl.auto">update</property>
 
-		<mapping resource="com/coolbreeze/oa/domain/User.hbm.xml" />
-		<mapping resource="com/coolbreeze/oa/domain/Department.hbm.xml" />
-		<mapping resource="com/coolbreeze/oa/domain/Role.hbm.xml" />
-		
-		
+
 		<!-- 导入jbpm映射文件 -->
 		<mapping resource="jbpm.repository.hbm.xml" />
 		<mapping resource="jbpm.execution.hbm.xml" />
 		<mapping resource="jbpm.history.hbm.xml" />
 		<mapping resource="jbpm.task.hbm.xml" />
 		<mapping resource="jbpm.identity.hbm.xml" />
+
+		<!-- 导入实体类映射文件 -->
+		<mapping resource="com/coolbreeze/oa/domain/User.hbm.xml" />
+		<mapping resource="com/coolbreeze/oa/domain/Department.hbm.xml" />
+		<mapping resource="com/coolbreeze/oa/domain/Role.hbm.xml" />
+		<mapping resource="com/coolbreeze/oa/domain/ProcessTemplate.hbm.xml" />
 
 	</session-factory>
 </hibernate-configuration>			

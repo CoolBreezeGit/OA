@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.coolbreeze.oa.base.BaseAction;
+import com.coolbreeze.oa.base.ModelDrivenBaseAction;
 import com.coolbreeze.oa.domain.Role;
 import com.coolbreeze.oa.service.RoleService;
 import com.opensymphony.xwork2.ActionContext;
@@ -16,7 +16,7 @@ import com.opensymphony.xwork2.ModelDriven;
 
 @Controller
 @Scope("prototype")
-public class RoleAction extends BaseAction<Role>{
+public class RoleAction extends ModelDrivenBaseAction<Role>{
 
 	// 显示
 	public String list() {	

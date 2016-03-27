@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.coolbreeze.oa.base.BaseAction;
+import com.coolbreeze.oa.base.ModelDrivenBaseAction;
 import com.coolbreeze.oa.domain.Department;
 import com.coolbreeze.oa.service.DepartmentService;
 import com.coolbreeze.oa.tool.DepartmentUtils;
@@ -19,7 +19,7 @@ import com.opensymphony.xwork2.ModelDriven;
 
 @Controller
 @Scope("prototype")
-public class DepartmentAction extends BaseAction<Department> {
+public class DepartmentAction extends ModelDrivenBaseAction<Department> {
 
 	private Long parentId;
 

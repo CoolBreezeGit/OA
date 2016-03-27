@@ -23,7 +23,7 @@
 					<li class="level2">
 						<div class="level2Style">
 							<img src="style/images/MenuIcon/menu_arrow_single.gif" /> <a
-								target="right" href="Flow_ProcessDefinition/list.html">审批流程管理</a>
+								target="right" href="processDefAction_list.action">审批流程管理</a>
 						</div>
 					</li>
 					<li class="level2">

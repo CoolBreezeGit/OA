@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
 
-import com.coolbreeze.oa.base.BaseAction;
+import com.coolbreeze.oa.base.ModelDrivenBaseAction;
 import com.coolbreeze.oa.domain.Department;
 import com.coolbreeze.oa.domain.Role;
 import com.coolbreeze.oa.domain.User;
@@ -16,7 +16,7 @@ import com.opensymphony.xwork2.ActionContext;
 
 @Controller
 @Scope("prototype")
-public class UserAction extends BaseAction<User> {
+public class UserAction extends ModelDrivenBaseAction<User> {
 
 	private Long departmentId;
 	private Long[] roleIds;
@@ -42,7 +42,7 @@ public class UserAction extends BaseAction<User> {
 	// 进入添加页面
 	public String addUI() {
 
-		// TODO 准备数据：部门和岗位，要以树状结构显示！！
+		// 准备数据：部门和岗位，要以树状结构显示！！
 		List<Department> departmentList = departmentService.findTopList();
 		departmentList=DepartmentUtils.treeList(departmentList, "┠");
 		

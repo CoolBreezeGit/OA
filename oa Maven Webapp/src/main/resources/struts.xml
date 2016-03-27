@@ -13,13 +13,15 @@
 
 	<package name="/" extends="struts-default" namespace="/">
 
+		<!-- 主页配置 -->
 		<action name="homeAction_*" class="homeAction" method="{1}">
 			<result name="{1}">
 				/WEB-INF/jsp/home/{1}.jsp
 			</result>
 		</action>
 
-
+	<!-- 系统管理配置 -->
+		<!-- 员工配置 -->
 		<action name="userAction_*" class="userAction" method="{1}">
 			<result name="list">
 				/WEB-INF/jsp/user/list.jsp
@@ -34,7 +36,7 @@
 				/WEB-INF/jsp/user/editUI.jsp
 			</result>
 		</action>
-
+		<!-- 岗位管理 -->
 		<action name="roleAction_*" class="roleAction" method="{1}">
 			<result name="list">
 				/WEB-INF/jsp/role/list.jsp
@@ -49,7 +51,7 @@
 				/WEB-INF/jsp/role/editUI.jsp
 			</result>
 		</action>
-
+		<!-- 部门管理 -->
 		<action name="departmentAction_*" class="departmentAction"
 			method="{1}">
 			<result name="list">
@@ -68,7 +70,26 @@
 				/WEB-INF/jsp/department/editUI.jsp
 			</result>
 		</action>
+	<!-- 系统管理配置 -->
 
+	<!-- 审批流程配置 -->
+		<!-- 审批流转：定义管理配置 -->
+		<action name="processDefAction_*" class="processDefAction" method="{1}">
+			<result name="list">
+				/WEB-INF/jsp/processDef/list.jsp
+			</result>
+			<result name="redirectList" type="redirectAction">
+				processDefAction_list
+			</result>
+			<result name="deployUI">
+				/WEB-INF/jsp/processDef/deployUI.jsp
+			</result>
+			<result name="showImg" type="stream">
+				<param name="contentType">image/png</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	<!-- 审批流程配置 -->
 	</package>
 
 </struts>

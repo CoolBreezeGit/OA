@@ -17,11 +17,11 @@
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="jdbcUrl" value="${jdbcUrl}"></property>
 		<property name="driverClass" value="${driverClass}"></property>
-		
+
 		<!-- 为什么不能使用${username},否则会报错，得到的user是Adminstrator??????? -->
-		
+
 		<property name="user" value="coolbreeze"></property>
-		
+
 		<property name="password" value="${password}"></property>
 
 		<!-- 其他配置 -->
@@ -60,5 +60,13 @@
 	<!-- 基于注解的事务管理 -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
+
+	<!-- 配置jbpm4.4 -->
+	<bean id="springHelper" class="org.jbpm.pvm.internal.processengine.SpringHelper">
+		<property name="jbpmCfg" value="jbpm.cfg.xml"></property>
+	</bean>
+
+	<bean id="processEngine" factory-bean="springHelper"
+		factory-method="createProcessEngine" />
 
 </beans>

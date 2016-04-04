@@ -3,15 +3,8 @@ package com.coolbreeze.oa.view.action;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
-import java.util.zip.ZipInputStream;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.struts2.ServletActionContext;
 import org.jbpm.api.ProcessDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -33,13 +26,11 @@ public class ProcessTemplateAction extends
 	 */
 	public String list() throws Exception {
 
-		System.out.println("list");
 		List<ProcessTemplate> processTemplateList = processTemplateService
 				.findAll();
 
 		ActionContext.getContext().put("processTemplateList",
 				processTemplateList);
-		System.out.println("list2");
 		return "list";
 	}
 
@@ -64,28 +55,60 @@ public class ProcessTemplateAction extends
 		/*
 		 * 保存流程doc文件到文件夹中
 		 */
-		//得到真实路径，末尾没有'/'
-		String basePath1=ServletActionContext.getServletContext().getRealPath("/WEB-INF/uploadFile");
-		//目录打散:使用年/月/日的文件夹分层格式
-		SimpleDateFormat sdf=new SimpleDateFormat("/yyyy/MM/dd/");
-		String basePath2=sdf.format(new Date());
-		
-		//如果不存在，则创建文件夹链
-		File file=new File(basePath1+basePath2);
-		if(!file.exists()){
-			file.mkdirs();
-		}
-		
-		//使用UUID防止文件重名
-		String path=basePath1+basePath2+UUID.randomUUID().toString();
-		//移动uplaod临时文件到/WEB-INF/uploadFile文件家下
-		upload.renameTo(new File(path));
-		
+		System.out.println(upload.getName());
+		String path = saveUploadFile(upload);
+
 		/*
 		 * 保存path到信息到数据库
 		 */
 		modelDTO.setPath(path);
 		processTemplateService.save(modelDTO);
+
+		return "redirectList";
+	}
+
+
+	//
+	public String editUI() {
+
+		// 需要准备所有最新版本的流程定义key，以便关联
+		List<ProcessDefinition> processDefList = processDefService
+				.findAllLastestVersion();
+		ActionContext.getContext().put("processDefList", processDefList);
+		
+		//回显
+		ProcessTemplate pt=processTemplateService.getById(modelDTO.getId());
+		ActionContext.getContext().getValueStack().push(pt);
+
+		return "editUI";
+	}
+
+	//
+	public String edit() {
+		
+		System.out.println(modelDTO.getId());
+		
+		//得到要修改的模板
+		ProcessTemplate pt=processTemplateService.getById(modelDTO.getId());
+		
+		//修改名称和所用流程定义
+		pt.setName(modelDTO.getName());
+		pt.setProcessDefKey(modelDTO.getProcessDefKey());
+
+		//如果修改了模板文件，则修改
+		if(upload != null){
+			
+			//删除旧文件
+			File oldFile=new File(pt.getPath());
+			if(oldFile.exists()){
+				oldFile.delete();
+			}
+			
+			//保存新文件的路径
+			pt.setPath(saveUploadFile(upload));
+		}
+		//更新
+		processTemplateService.update(pt);
 		
 		return "redirectList";
 	}
@@ -99,11 +122,15 @@ public class ProcessTemplateAction extends
 	}
 
 	// 下载流程模板doc文件
-	public String download() throws Exception{
+	public String download() throws Exception {
 
 		ProcessTemplate processTemplate = processTemplateService
 				.getById(modelDTO.getId());
-		inputStream=new FileInputStream(processTemplate.getPath());
+
+		String fileName = "doc文件";
+		ActionContext.getContext().put("fileName", fileName);
+
+		inputStream = new FileInputStream(processTemplate.getPath());
 
 		return "download";
 	}

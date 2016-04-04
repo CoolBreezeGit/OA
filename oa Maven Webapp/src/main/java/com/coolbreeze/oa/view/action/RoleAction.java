@@ -42,7 +42,7 @@ public class RoleAction extends ModelDrivenBaseAction<Role>{
 	// 添加
 	public String add() {
 		//System.out.println(modelDTO.getName());
-		roleService.add(modelDTO);
+		roleService.save(modelDTO);
 		return "redirectList";
 	}
 

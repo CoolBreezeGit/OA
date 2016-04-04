@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="Leave" xmlns="http://jbpm.org/4.4/jpdl">
+   <start g="234,15,48,48" name="start1">
+      <transition g="-69,-22" name="to 提交申请" to="提交申请"/>
+   </start>
+   <end g="234,369,48,48" name="end1"/>
+   <task g="144,87,92,52" name="提交申请" assignee="${application.applicant.loginName}">
+      <transition g="-69,-22" name="to 科长审批" to="科长审批"/>
+   </task>
+   <task assignee="zhouqingqing" g="204,171,92,52" name="科长审批">
+      <transition g="-69,-22" name="to 部长审批" to="部长审批"/>
+   </task>
+   <task assignee="shilingling" g="178,270,92,52" name="部长审批">
+      <transition g="-50,-22" name="to end1" to="end1"/>
+   </task>
+</process>

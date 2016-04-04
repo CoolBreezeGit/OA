@@ -13,6 +13,12 @@
 		<property name="path"></property>
 		<property name="ProcessDefKey"></property>
 
+		<!-- applications属性，与Application类的一对多关系 -->
+		<set name="applications">
+			<key column="processTemplateId"></key>
+			<one-to-many class="Application"/>
+		</set>
+
 	</class>
 	
 </hibernate-mapping>

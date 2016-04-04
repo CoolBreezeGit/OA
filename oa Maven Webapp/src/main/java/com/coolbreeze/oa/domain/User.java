@@ -19,6 +19,7 @@ public class User {
 	private String email; // 电子邮件
 	private String description; // 说明
 
+
 	public Long getId() {
 		return id;
 	}

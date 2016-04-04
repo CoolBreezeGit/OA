@@ -4,6 +4,9 @@
           "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 
+	<!-- 开发模式 -->
+	<constant name="struts.devMode" value="true"></constant>
+	
 	<!-- 标签为简单主题，便于排版 -->
 	<constant name="struts.ui.theme" value="simple"></constant>
 	<constant name="struts.i18n.encoding" value="utf-8"/>
@@ -15,6 +18,26 @@
 	<constant name="struts.ognl.allowStaticMethodAcces" value="true"></constant>
 
 	<package name="/" extends="struts-default" namespace="/">
+	
+		
+		<!-- 权限控制拦截器 -->
+		<interceptors>
+			<interceptor name="privilegeInterceptor" class="com.coolbreeze.oa.interceptor.PrivilegeInterceptor"></interceptor>
+			<interceptor-stack name="defaultStack">
+				<interceptor-ref name="privilegeInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		
+		<!-- 全局result配置 -->
+		<global-results>
+			<result name="redirectLoginUI" type="redirectAction">
+				userAction_loginUI
+			</result>
+		</global-results>
+	
+	
 
 		<!-- 主页配置 -->
 		<action name="homeAction_*" class="homeAction" method="{1}">
@@ -37,6 +60,15 @@
 			</result>
 			<result name="editUI">
 				/WEB-INF/jsp/user/editUI.jsp
+			</result>
+			
+			<!-- 登录注销功能配置 -->
+			<result name="redirectIndex" type="redirectAction">
+				homeAction_index
+			</result>
+			
+			<result name="loginUI">
+				/WEB-INF/jsp/user/loginUI.jsp
 			</result>
 		</action>
 		<!-- 岗位管理 -->
@@ -103,12 +135,46 @@
 			<result name="addUI">
 				/WEB-INF/jsp/processTemplate/addUI.jsp
 			</result>
+			<result name="editUI">
+				/WEB-INF/jsp/processTemplate/editUI.jsp
+			</result>
 			<result name="download" type="stream">
 				<!-- 二进制 -->
 				<param name="contentType">application/octet-stream</param>
 				<param name="inputName">inputStream</param>
+				<param name="contentDiposition">attachment;fileName="${#fileName}"</param>				
 			</result>
 		</action>
+		
+		<!-- 审批工作流Action配置 -->
+		<action name="jobFlowAction_*" class="jobFlowAction" method="{1}">
+			
+			<result name="applicationUI1">
+				/WEB-INF/jsp/jobFlow/applicationUI1.jsp
+			</result>
+			<result name="applicationUI2">
+				/WEB-INF/jsp/jobFlow/applicationUI2.jsp
+			</result>
+			<result name="redirectMyAppQuery" type="redirectAction">
+				jobFlowAction_myAppQuery
+			</result>
+			<result name="applicationList">
+				/WEB-INF/jsp/jobFlow/applicationList.jsp
+			</result>
+			<result name="taskList">
+				/WEB-INF/jsp/jobFlow/taskList.jsp
+			</result>
+			<result name="approveUI">
+				/WEB-INF/jsp/jobFlow/approveUI.jsp
+			</result>
+			<result name="redirectQueryMyTask" type="redirectAction">
+				jobFlowAction_queryMyTask
+			</result>
+			<result name="processRecord">
+				/WEB-INF/jsp/jobFlow/processRecord.jsp
+			</result>
+		</action>
+		
 	<!-- 审批流程配置 -->
 	</package>
 

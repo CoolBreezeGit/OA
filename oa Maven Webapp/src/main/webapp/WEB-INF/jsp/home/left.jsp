@@ -15,7 +15,7 @@
 		<ul id="MenuUl">
 
 			<li class="level1">
-				<div onClick="menuClick(this);" class="level1Style">
+				<div onClick="menuClick(this);" class="level1Style" style="cursor:pointer">
 					<img src="style/images/MenuIcon/FUNC20057.gif" class="Icon" />
 					审批流转
 				</div>
@@ -35,26 +35,26 @@
 					<li class="level2">
 						<div class="level2Style">
 							<img src="style/images/MenuIcon/menu_arrow_single.gif" /> <a
-								target="right" href="Flow_Formflow/formTemplateList.html">起草申请</a>
+								target="right" href="jobFlowAction_applicationUI1.action">起草申请</a>
 						</div>
 					</li>
 					<li class="level2">
 						<div class="level2Style">
 							<img src="style/images/MenuIcon/menu_arrow_single.gif" /> <a
-								target="right" href="Flow_Formflow/myTaskList.html"> 待我审批</a>
+								target="right" href="jobFlowAction_queryMyTask.action"> 待我审批</a>
 						</div>
 					</li>
 					<li class="level2">
 						<div class="level2Style">
 							<img src="style/images/MenuIcon/menu_arrow_single.gif" /> <a
-								target="right" href="Flow_FormFlow_Old/mySubmittedList.html">我的申请查询</a>
+								target="right" href="jobFlowAction_queryMyApp.action">我的申请查询</a>
 						</div>
 					</li>
 				</ul>
 			</li>
 
 			<li class="level1">
-				<div onClick="menuClick(this);" class="level1Style">
+				<div onClick="menuClick(this);" class="level1Style" style="cursor:pointer">
 					<img src="style/images/MenuIcon/FUNC20082.gif" class="Icon" />
 					系统管理
 				</div>

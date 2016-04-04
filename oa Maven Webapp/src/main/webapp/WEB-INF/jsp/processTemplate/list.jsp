@@ -38,7 +38,7 @@
 					<td>${processDefKey}&nbsp;</td>
 					<td>
 						<s:a onClick="return delConfirm()" action="processTemplateAction_delete?id=%{id}" >删除</s:a>
-						<s:a action="processTemplateAction_edit?id=%{id}" >修改</s:a>
+						<s:a action="processTemplateAction_editUI?id=%{id}" >修改</s:a>
 						<s:a action="processTemplateAction_download?id=%{id}" >下载</s:a>
 					</td>
 			</tr>

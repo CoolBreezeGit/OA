@@ -16,13 +16,10 @@
 	href="${pageContext.request.contextPath}/style/blue/pageCommon.css" />
 <script type="text/javascript">
 	function showProcessImage(processDefId) {
-		alert(processDefId);
-		//TODO 为什么不起作用？？？下方的ognl调用的静态方法也不作用？？
+	
 		processDefId = encodeURI(processDefId);
-		alert(processDefId);
 
 		processDefId = encodeURI(processDefId);
-		alert(processDefId);
 
 		var url = "${pageContext.request.contextPath}/processDefAction_showProcessImg.action?id="
 				+ processDefId + "&t=" + new Date(); //防止缓存
@@ -56,6 +53,7 @@
 					<td width="80px">最新版本</td>
 					<td width="300px">说明</td>
 					<td>相关操作</td>
+					<td>aaa<s:property value="@com.coolbreeze.oa.tool.TestOGNLStatic@test()"/> </td>
 				</tr>
 			</thead>
 
@@ -68,8 +66,9 @@
 						<td>${description}&nbsp;</td>
 						<td><s:a action="processDefAction_delete"
 								onclick="return delConfirm()">
+								<!-- 为什么为空？？？？？？struts.xml已经配置好，？？？？？ -->
 								<s:param name="key"
-									value="@java.net.URLEncode(key,'utf-8')"></s:param>
+									value="@java.net.URLEncoder@encode(key,'utf8')"></s:param>
 						删除
 					</s:a> <a href="javascript:showProcessImage('${id}')">查看流程图</a></td>
 					</tr>

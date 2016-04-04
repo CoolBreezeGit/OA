@@ -3,7 +3,7 @@ package com.coolbreeze.oa.view.action;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.net.URLEncoder;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 
@@ -67,7 +67,7 @@ public class ProcessDefAction extends BaseAction {
 		//方式一：反向编码
 		//key=new String(key.getBytes("iso8859-1"),"utf-8");
 		//方式二：客户端二次编码，服务端一次解码
-		key=URLEncoder.encode(key, "utf-8");
+		key=URLDecoder.decode(key, "utf-8");
 		
 		processDefService.delete(key);
 		return "redirectList";
@@ -76,11 +76,8 @@ public class ProcessDefAction extends BaseAction {
 	// 显示流程图
 	public String showProcessImg() throws Exception {
 	
-		System.out.println("id="+id);
-		
-		id=URLEncoder.encode(id,"utf-8");
-		
-		System.out.println("id="+id);
+		//客户端二次编码，服务端一次解码
+		id=URLDecoder.decode(id, "utf-8");
 		
 		inputStream = processDefService.getProcessImgAsStream(id);
 

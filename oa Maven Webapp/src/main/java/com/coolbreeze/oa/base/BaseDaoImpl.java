@@ -8,12 +8,15 @@ import javax.annotation.Resource;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.jbpm.api.ProcessEngine;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional		//必须要开启事务，否则getCurrentSession不能成功！！子类可以继承
 @SuppressWarnings("unchecked")
 public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 
+	@Resource
+	protected ProcessEngine processEngine;
 	@Resource
 	private SessionFactory sessionFactory;
 	protected Class<T> clazz;

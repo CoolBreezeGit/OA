@@ -64,7 +64,7 @@ public class UserAction extends ModelDrivenBaseAction<User> {
 		//默认设置密码为1234
 		modelDTO.setPassword( DigestUtils.md5DigestAsHex("1234".getBytes()));
 		
-		userService.add(modelDTO);
+		userService.save(modelDTO);
 		return "redirectList";
 	}
 
@@ -129,7 +129,6 @@ public class UserAction extends ModelDrivenBaseAction<User> {
 	}
 	
 	
-	
 	//初始化密码
 	public String initPassword(){
 		User user = userService.getById(modelDTO.getId());
@@ -140,6 +139,41 @@ public class UserAction extends ModelDrivenBaseAction<User> {
 		user.setPassword(DigestUtils.md5DigestAsHex("1234".getBytes()));
 		userService.update(user);
 		return "redirectList";
+	}
+	
+	
+	
+	//===================================================
+	//用户登录界面
+	public String loginUI(){
+		return "loginUI";
+	}
+	
+	/*
+	 * 用户登录
+	 */
+	public String login(){
+		
+		User user=userService.findByLoginNameAndPassword(modelDTO.getLoginName(),modelDTO.getPassword());
+		
+		
+		if(user==null){
+			addFieldError("error", "用户名或密码错误！");
+			return "loginUI";
+		}else{
+			ActionContext.getContext().getSession().put("user", user);
+			return "redirectIndex";
+		}
+	}
+	
+	/*
+	 * 用户注销
+	 */
+	public String logout(){
+		
+		ActionContext.getContext().getSession().remove("user");
+		
+		return "redirectLoginUI";
 	}
 	
 	//================================================

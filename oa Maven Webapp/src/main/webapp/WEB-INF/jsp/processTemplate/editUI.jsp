@@ -1,7 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
-	<title>文档信息</title>
+	<title>修改</title>
     <%@ include file="/WEB-INF/jsp/public/common.jspf" %>
 </head>
 <body>
@@ -19,7 +20,8 @@
 
 <!--显示表单内容-->
 <div id=MainArea>
-    <s:form action="processTemplateAction_add" enctype="multipart/form-data">
+    <s:form action="processTemplateAction_edit" enctype="multipart/form-data">
+    	<input type="hidden" name="id" value="${id}">
         <div class="ItemBlock_Title1"><!-- 信息说明 --><div class="ItemBlock_Title1">
         	<img border="0" width="4" height="7" src="${pageContext.request.contextPath}/style/blue/images/item_point.gif" /> 模板基本信息 </div> 
         </div>
@@ -30,7 +32,7 @@
                 <table cellpadding="0" cellspacing="0" class="mainForm">
 				   	<tr>
                         <td>模板名称</td>
-                        <td><s:textfield name="name" cssClass="InputStyle" />  *</td>
+                        <td><s:textfield name="name" vcssClass="InputStyle" />  *</td>
                     </tr>
                     <tr>
                         <td>所用流程</td>

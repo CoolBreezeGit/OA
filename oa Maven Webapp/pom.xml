@@ -3,7 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.coolbreeze</groupId>
 	<artifactId>oa</artifactId>
-	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>oa</name>
 	<url>http://maven.apache.org</url>
@@ -194,6 +193,9 @@
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0.1.0</version>
 		</dependency>
+
+
+
 
 		<!-- c3p0连接池包 -->
 		<dependency>

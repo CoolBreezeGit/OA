@@ -9,7 +9,7 @@
   </head>
 
 <!-- 此处应把body去掉！！frameset包含整个页面，不用body -->
-    <frameset rows="100px,*,30px">
+    <frameset rows="55px,*,30px">
     	<frame name="top" scrolling="no" src="${pageContext.request.contextPath}/homeAction_top.action"></frame>
     	<frameset cols="200px,*">
     		<frame name="left" scrolling="no" src="${pageContext.request.contextPath}/homeAction_left.action"></frame>

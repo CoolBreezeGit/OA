@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.coolbreeze.oa.domain">
+
+	<class name="Application" table="oa_application">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		
+		<property name="name" />
+		<property name="applyTime" type="timestamp"/>
+		<property name="filePath"></property>
+		<property name="status"></property>
+		
+
+		<!--  applicant属性，与user类的多对一 ,单向关联-->
+		<many-to-one name="applicant" class="User" column="userId"></many-to-one>
+
+		<!-- approveInfos,本类与ApproveInfo类的一对多属性 -->
+		<set name="approveInfos">
+			<key column="applicationId"></key>
+			<one-to-many class="ApproveInfo"/>
+		</set>
+
+		<!-- processTemplate属性，本类与ProcessTemplate的多对一，双向关联  -->
+		<many-to-one name="processTemplate" class="ProcessTemplate" column="processTemplateId"></many-to-one>
+
+	</class>
+
+</hibernate-mapping>
